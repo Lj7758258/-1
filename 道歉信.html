@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给六一的道歉信</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe8e8 0%, #f8f4ff 100%);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+        }
+        
+        /* 封面页样式 */
+        .cover-page {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+        
+        .cover-page.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            padding: 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .right-panel {
+            flex: 1.5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .envelope {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            font-size: 20px;
+            margin: 0 5px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .apology-title {
+            font-size: 32px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .message {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .btn-open {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-open:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* 内容页样式 */
+        .content-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            transform: translateY(20px);
+            z-index: 5;
+        }
+        
+        .content-page.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        
+        .letter-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .letter-title {
+            font-size: 32px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .letter-date {
+            color: #888;
+            font-style: italic;
+        }
+        
+        .letter-content {
+            color: #333;
+            line-height: 1.8;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+        
+        .paragraph {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 40px;
+            color: #555;
+            font-style: italic;
+            font-size: 18px;
+        }
+        
+        .btn-back {
+            background: #f1f1f1;
+            color: #555;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        .btn-back:hover {
+            background: #e0e0e0;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 107, 107, 0.7);
+            font-size: 20px;
+            animation: floating 10s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-500px) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .cover-page {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .left-panel, .right-panel {
+                padding: 30px;
+            }
+            
+            .content-page {
+                padding: 30px;
+            }
+            
+            .letter-content {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <!-- 封面页 -->
+            <div class="cover-page" id="coverPage">
+                <div class="left-panel">
+                    <i class="fas fa-envelope-open-text envelope"></i>
+                    <h1 class="title">致六一</h1>
+                    <p class="subtitle">这封信包含了我最真诚的歉意和对你全部的爱</p>
+                    <div class="hearts-container">
+                        <i class="fas fa-heart heart" style="animation-delay: 0s"></i>
+                        <i class="fas fa-heart heart" style="animation-delay: 0.5s"></i>
+                        <i class="fas fa-heart heart" style="animation-delay: 1s"></i>
+                    </div>
+                </div>
+                
+                <div class="right-panel">
+                    <h2 class="apology-title">真诚的道歉</h2>
+                    <p class="message">
+                        为我之前不体贴的言行深感抱歉<br>
+                        我未能充分考虑你的感受和健康<br>
+                        希望你能接受我诚挚的歉意
+                    </p>
+                    
+                    <button class="btn-open" onclick="openLetter()">
+                        <i class="fas fa-heart"></i> 打开道歉信
+                    </button>
+                    
+                    <p class="signature">永远爱你的我</p>
+                </div>
+                
+                <div class="floating-hearts" id="floating-hearts"></div>
+            </div>
+            
+            <!-- 内容页 -->
+            <div class="content-page" id="contentPage">
+                <div class="letter-header">
+                    <h2 class="letter-title">致我最亲爱的六一</h2>
+                    <p class="letter-date">2025年8月26日</p>
+                </div>
+                
+                <div class="letter-content">
+                    <p>宝宝！此刻我怀着无比愧疚和懊悔的心情，写下这封信，希望能向你表达我最深的歉意和反省。因为之前聊天时我提出的让你吃避孕药话，不仅伤害了你的感情，更让你觉得我不关心你、不体贴你，我对此感到非常难过和自责。对不起，我真的错了。</p>
+                    
+                    <p>首先，我想真诚地对你说一声：对不起。我的言语和行为显然没有考虑到你的感受和健康，而是片面地从自己的角度出发，提出了一个自私且不负责任的建议。避孕药虽然是一种常见的避孕方式，但它也可能对身体带来一定的副作用和影响，而我却没有充分重视这一点，更没有站在你的立场去思考这个问题。这是我的严重失误，也是我对你关心不足的表现。</p>
+                    
+                    <p>我明白你为什么生气。你希望我能更体贴你、更爱护你，而不是仅仅为了解决一时的需求而忽略你的身心健康。你的感受是完全合理的，而我却没有意识到这一点。我忽略了爱情中最重要的一点：相互尊重和珍惜。我应该时刻把你的健康和快乐放在第一位，而不是让你为我承担不必要的风险或压力。</p>
+                    
+                    <p>通过这件事，我也深刻反思了自己。我意识到，在感情中，很多时候我可能还不够成熟，甚至有些自私。我没有充分意识到，一段真正美好的关系需要双方共同努力、互相体谅，而不是单方面地提出要求。尤其是在涉及健康和未来的问题上，我更应该谨慎和负责任。你的身体和感受永远应该是第一位的，而我却一时糊涂，忽略了这一点。</p>
+                    
+                    <p>我想向你保证，从现在开始，我会更加努力地去成为一个体贴、成熟、负责任的伴侣。我会更多地倾听你的想法，尊重你的选择，尤其是在重要的事情上，我会始终以你的身心健康和幸福为重。如果我们未来有任何关于避孕或者类似的问题，我会主动和你沟通，一起商量最适合我们两人的方式，而不是单方面地提出建议。</p>
+                    
+                    <p>此外，我也想让你知道，我真心在乎你、爱你。你是我生命中最重要的人，我不希望因为我的无知或自私而让你感到伤心或失望。我会用行动证明我对你的爱和承诺，而不仅仅是口头上的道歉。</p>
+                    
+                    <p>最后，再次为我之前的行为和言语向你道歉。我希望你能给我一个机会，让我用未来的行动来弥补我的过错。</p>
+                    
+                    <p>谢谢你这段时间来对我的关心，给我提供的情绪价值，我会努力变得更好，配得上你的付出和信任。</p>
+                </div>
+                
+                <p class="signature"><br>小雷子</p>
+                
+                <button class="btn-back" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> 返回封面
+                </button>
+            </div>
+        </div>
+
+    <script>
+        // 设置当前日期
+        function setCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', options);
+        }
+        
+        // 创建漂浮的心形
+        function createHearts() {
+            const container = document.getElementById('floating-hearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(heart);
+            }
+        }
+        
+        // 打开信件函数
+        function openLetter() {
+            const coverPage = document.getElementById('coverPage');
+            const contentPage = document.getElementById('contentPage');
+            
+            coverPage.classList.add('hidden');
+            setTimeout(() => {
+                contentPage.classList.add('visible');
+            }, 300);
+        }
+        
+        // 返回封面函数
+        function goBack() {
+            const coverPage = document.getElementById('coverPage');
+            const contentPage = document.getElementById('contentPage');
+            
+            contentPage.classList.remove('visible');
+            setTimeout(() => {
+                coverPage.classList.remove('hidden');
+            }, 300);
+        }
+        
+        // 页面加载时初始化
+        window.onload = function() {
+            setCurrentDate();
+            createHearts();
+        };
+    </script>
+</body>
+</html>
